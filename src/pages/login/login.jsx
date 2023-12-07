@@ -35,110 +35,115 @@ export default function LogIn() {
       password: data.get("password"),
     });
   };
-}
 
-return (
-  <ThemeProvider theme={defaulTheme}>
-    <Container component="main" maxwidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography component="h1" variant="h4" fontWeight={700}>
-          Log in
-        </Typography>
-        <Typography component="h1" variant="h6" fontWeight={115}>
-          Welcome back!
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email "
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            required
-            fullWidth
-            id="password"
-            label="Password"
-            type={showPassword ? "text" : "password"}
-            name="password"
-            autoComplete="new-password"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <div
-            className="container"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
+  return (
+    <ThemeProvider theme={defaulTheme}>
+      <Container component="main" maxwidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography component="h1" variant="h4" fontWeight={700}>
+            Log in
+          </Typography>
+          <Typography component="h1" variant="h6" fontWeight={115}>
+            Welcome back!
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
           >
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email "
+              name="email"
+              autoComplete="email"
+              autoFocus
             />
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+            <TextField
+              required
+              fullWidth
+              id="password"
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              autoComplete="new-password"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <div
+              className="container"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+            </div>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Log In
+            </Button>
+            <Grid container justifyContent="center" sx={{ mt: 2 }}>
+              <Grid item>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  sx={{ textDecoration: "none" }}
+                >
+                  Already have an account?
+                </Typography>
+              </Grid>
+              <Grid item sx={{ marginRight: 2 }}></Grid>
+              <Grid item>
+                <Typography
+                  color="primary"
+                  component="span"
+                  variant="body2"
+                  sx={{ textDecoration: "none" }}
+                >
+                  Sign in
+                </Typography>
+              </Grid>
             </Grid>
-          </div>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Log In
-          </Button>
-          <Grid container justifyContent="center" sx={{ mt: 2 }}>
-            <Grid item>
-              <Typography
-                component="span"
-                variant="body2"
-                sx={{ textDecoration: "none" }}
-              >
-                Already have an account?
-              </Typography>
-            </Grid>
-            <Grid item sx={{ marginRight: 2 }}></Grid>
-            <Grid item>
-              <Typography
-                color="primary"
-                component="span"
-                variant="body2"
-                sx={{ textDecoration: "none" }}
-              >
-                Sign in
-              </Typography>
-            </Grid>
-          </Grid>
+          </Box>
         </Box>
-      </Box>
-    </Container>
-  </ThemeProvider>
-);
+      </Container>
+    </ThemeProvider>
+  );
+}
