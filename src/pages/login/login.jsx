@@ -140,7 +140,7 @@ export default function LogIn() {
                   variant="body2"
                   sx={{ textDecoration: "none" }}
                 >
-                  Already have an account?
+                  Create an account ?
                 </Typography>
               </Grid>
               <Grid item sx={{ marginRight: 2 }}></Grid>
@@ -151,7 +151,7 @@ export default function LogIn() {
                   variant="body2"
                   sx={{ textDecoration: "none" }}
                 >
-                  Sign in
+                  <Link to="/signup">Sign up</Link>
                 </Typography>
               </Grid>
             </Grid>

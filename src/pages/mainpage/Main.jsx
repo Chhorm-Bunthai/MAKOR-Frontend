@@ -1,11 +1,9 @@
-import Navbar from '../../component/Nav'
-
 function Main() {
   return (
     <div>
-      <Navbar/>
+      <h1>WELCOME</h1>
     </div>
-  )
+  );
 }
 
-export default Main
+export default Main;
