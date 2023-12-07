@@ -116,6 +116,28 @@ return (
           >
             Log In
           </Button>
+          <Grid container justifyContent="center" sx={{ mt: 2 }}>
+            <Grid item>
+              <Typography
+                component="span"
+                variant="body2"
+                sx={{ textDecoration: "none" }}
+              >
+                Already have an account?
+              </Typography>
+            </Grid>
+            <Grid item sx={{ marginRight: 2 }}></Grid>
+            <Grid item>
+              <Typography
+                color="primary"
+                component="span"
+                variant="body2"
+                sx={{ textDecoration: "none" }}
+              >
+                Sign in
+              </Typography>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>
