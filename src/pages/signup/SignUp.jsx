@@ -11,12 +11,42 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import axios from "axios";
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const val = {
+      name,
+      email,
+      password,
+      passwordConfirm,
+    };
+
+    console.log(val);
+    console.log(val, "va");
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/users/signup",
+        val,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response.data); // log the successful response
+    } catch (error) {
+      console.error("Error submitting the form:", error);
+    }
+  };
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -28,16 +58,6 @@ export default function SignUp() {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-      confirmPassword: data.get("confirmPassword"),
-    });
   };
 
   return (
@@ -65,8 +85,9 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
                   autoComplete="given-name"
-                  name="fullName"
                   required
                   fullWidth
                   id="fullName"
@@ -76,6 +97,8 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
                   required
                   fullWidth
                   id="email"
@@ -86,6 +109,8 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                   required
                   fullWidth
                   id="password"
@@ -102,7 +127,7 @@ export default function SignUp() {
                           onMouseDown={handleMouseDownPassword}
                           edge="end"
                         >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                       </InputAdornment>
                     ),
@@ -111,12 +136,14 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={(e) => setPasswordConfirm(e.target.value)}
+                  value={passwordConfirm}
                   required
                   fullWidth
                   id="confirmPassword"
                   label="Confirm Password"
                   type={showConfirmPassword ? "text" : "password"}
-                  name="confirmPassword"
+                  name="passwordConfirm" // This should match the property name in the data state
                   autoComplete="new-password"
                   InputProps={{
                     endAdornment: (
@@ -128,9 +155,9 @@ export default function SignUp() {
                           edge="end"
                         >
                           {showConfirmPassword ? (
-                            <VisibilityOff />
-                          ) : (
                             <Visibility />
+                          ) : (
+                            <VisibilityOff />
                           )}
                         </IconButton>
                       </InputAdornment>
