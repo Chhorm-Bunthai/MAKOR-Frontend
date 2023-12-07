@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -13,11 +13,34 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import axios from "axios";
 
 const defaulTheme = createTheme();
 
 export default function LogIn() {
   const [showPassword, setShowPassword] = React.useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const val = {
+      email,
+      password,
+    };
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/users/login",
+        val,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response.data); // log the successful response
+    } catch (error) {
+      console.error("Error submitting the form:", error);
+    }
+  };
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -25,15 +48,6 @@ export default function LogIn() {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
 
   return (
@@ -54,13 +68,10 @@ export default function LogIn() {
           <Typography component="h1" variant="h6" fontWeight={115}>
             Welcome back!
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
               margin="normal"
               required
               fullWidth
@@ -71,6 +82,8 @@ export default function LogIn() {
               autoFocus
             />
             <TextField
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
               required
               fullWidth
               id="password"
@@ -116,6 +129,7 @@ export default function LogIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleSubmit}
             >
               Log In
             </Button>
