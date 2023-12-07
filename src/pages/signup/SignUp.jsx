@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -194,7 +195,7 @@ export default function SignUp() {
                   variant="body2"
                   sx={{ textDecoration: "none" }}
                 >
-                  Sign in
+                  <Link to="/login">Sign in</Link>
                 </Typography>
               </Grid>
             </Grid>
