@@ -69,7 +69,6 @@ return (
           <TextField
             required
             fullWidth
-            style={{ marginTop: 24, marginBottom: 24 }}
             id="password"
             label="Password"
             type={showPassword ? "text" : "password"}
