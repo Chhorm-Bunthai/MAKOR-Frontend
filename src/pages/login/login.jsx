@@ -55,6 +55,42 @@ return (
         <Typography component="h1" variant="h6" fontWeight={115}>
           Welcome back!
         </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email "
+            name="email"
+            autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            required
+            fullWidth
+            style={{ marginTop: 24, marginBottom: 24 }}
+            id="password"
+            label="Password"
+            type={showPassword ? "text" : "password"}
+            name="password"
+            autoComplete="new-password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
       </Box>
     </Container>
   </ThemeProvider>
