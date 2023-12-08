@@ -62,12 +62,10 @@ export default function LogIn() {
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h4" fontWeight={700}>
+          <Typography component="h1" variant="h2" sx={{ fontWeight: "bold" }}>
             Log in
           </Typography>
-          <Typography component="h1" variant="h6" fontWeight={115}>
-            Welcome back!
-          </Typography>
+          <Typography>Welcome back!</Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
               onChange={(e) => setEmail(e.target.value)}
