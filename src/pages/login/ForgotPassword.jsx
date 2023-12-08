@@ -18,7 +18,6 @@ const ForgotPassword = () => {
       const data = {
         email,
       };
-
       const res = await axios.post(
         "http://localhost:3000/api/users/forgotPassword",
         data,
@@ -66,7 +65,12 @@ const ForgotPassword = () => {
           />
           <Grid container justifyContent="center">
             <Grid item>
-              <Button variant="contained" color="primary" type="submit"  onClick={handleSubmit}>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                onClick={handleSubmit}
+              >
                 Reset Password
               </Button>
             </Grid>
