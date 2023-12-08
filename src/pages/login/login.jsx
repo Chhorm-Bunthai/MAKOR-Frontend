@@ -142,11 +142,9 @@ export default function LogIn() {
               <Grid item sx={{ marginRight: 2 }}></Grid>
               <Grid item>
                 <Typography color="primary" component="span" variant="body2">
-                  <a href="/signup">
-                    <Link to="" style={{ textDecoration: "none" }}>
-                      Sign up
-                    </Link>
-                  </a>
+                  <Link to="/signup" style={{ textDecoration: "none" }}>
+                    Sign up
+                  </Link>
                 </Typography>
               </Grid>
             </Grid>
