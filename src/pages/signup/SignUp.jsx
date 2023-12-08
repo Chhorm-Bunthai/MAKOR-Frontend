@@ -195,7 +195,7 @@ export default function SignUp() {
                   variant="body2"
                   sx={{ textDecoration: "none" }}
                 >
-                  <Link to="/login">Sign in</Link>
+                  <Link to="/login">Log in</Link>
                 </Typography>
               </Grid>
             </Grid>

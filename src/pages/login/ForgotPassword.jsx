@@ -40,19 +40,19 @@ const ForgotPassword = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
+          // justifyContent: "center",
           padding: "20px",
         }}
       >
-        <Typography variant="h5">Forgot Password</Typography>
+        <Typography variant="h5" sx={{ marginBottom: "30px", marginTop: "20PX", fontWeight: "bold"}}>Forgot Password</Typography>
         {/* {resetSent ? ( */}
 
-        <Stack spacing={2}>
+        <Stack spacing={2} >
           <Typography>
-            Enter your email address, and we will send you a link to reset your
+            Enter your email address, and we will send you a link via your email to reset your
             password.
           </Typography>
-          <TextField
+          {/* <TextField
             variant="outlined"
             margin="normal"
             fullWidth
@@ -62,8 +62,20 @@ const ForgotPassword = () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-          />
-          <Grid container justifyContent="center">
+          /> */}
+          <TextField
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  required
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+          <Grid container justifyContent="start">
             <Grid item>
               <Button
                 variant="contained"
@@ -71,7 +83,7 @@ const ForgotPassword = () => {
                 type="submit"
                 onClick={handleSubmit}
               >
-                Reset Password
+                send
               </Button>
             </Grid>
           </Grid>
