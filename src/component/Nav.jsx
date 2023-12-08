@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import axios from "axios";
 import {
-  Card,
+  // Card,
   AppBar,
   Toolbar,
   IconButton,
@@ -10,7 +11,18 @@ import {
 import { AccountCircle, ExitToApp } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-const Navbar = ({ toggleProfile }) => {
+const Navbar = () => {
+  const handleClick = async () => {
+    try {
+      await axios.get("http://localhost:3000/api/users/logout", {
+        withCredentials: true,
+      });
+      console.log("logged out");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <AppBar position="static">
@@ -28,15 +40,13 @@ const Navbar = ({ toggleProfile }) => {
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Link className="logo" to="/login">
-              <IconButton color="inherit" onClick={toggleProfile}>
+              <IconButton color="inherit">
                 <AccountCircle />
               </IconButton>
             </Link>
-            <Link className="logo" to="/logout">
-              <IconButton color="inherit">
-                <ExitToApp />
-              </IconButton>
-            </Link>
+            <IconButton color="inherit" onClick={handleClick}>
+              <ExitToApp />
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
