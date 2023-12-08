@@ -7,18 +7,35 @@ import {
   Stack,
   Grid,
 } from "@mui/material";
+import axios from "axios";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  //   const [resetSent, setResetSent] = useState(false);
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const data = {
+        email,
+      };
+
+      const res = await axios.post(
+        "http://localhost:3000/api/users/forgotPassword",
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res);
+      console.log(email);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
   return (
     <Container component="main" maxWidth="xs">
       <Stack
+        onSubmit={handleSubmit}
         sx={{
           height: "100vh",
           display: "flex",
@@ -43,17 +60,18 @@ const ForgotPassword = () => {
             label="Email Address"
             type="email"
             value={email}
-            onChange={handleEmailChange}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
           <Grid container justifyContent="center">
             <Grid item>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" type="submit"  onClick={handleSubmit}>
                 Reset Password
               </Button>
             </Grid>
           </Grid>
         </Stack>
-        {/* )} */}
       </Stack>
     </Container>
   );
