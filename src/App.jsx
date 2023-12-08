@@ -16,8 +16,8 @@ function App() {
       <div className="">
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="forgotPass" element={<ForgotPassword />} />
-          <Route path="resetPass" element={<ResetPassword />} />
+          <Route path="/forgotPass" element={<ForgotPassword />} />
+          <Route path="/resetPassword/:token" element={<ResetPassword />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<Signup />} />

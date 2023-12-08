@@ -1,23 +1,34 @@
 import { useState } from "react";
-import { TextField, Container, Typography } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { Button, TextField, Container, Typography } from "@mui/material";
+import axios from "axios";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const { token } = useParams();
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const data = {
+        password,
+        passwordConfirm,
+      };
+      console.log(data);
+      const res = await axios.patch(
+        `http://localhost:3000/api/users/resetPassword/${token}`,
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
   };
-
-  const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
-  };
-
-  //   const handleResetClick = () => {
-  //     // Here, you would typically make an API call to reset the password
-  //     // For demonstration purposes, we'll just set a flag to simulate it
-  //     onResetPassword();
-  //   };
 
   return (
     <Container
@@ -30,27 +41,29 @@ const ResetPassword = () => {
         Enter a new password for your account associated with{" "}
         {/* {email || "your email"}. */}
       </Typography>
-      <TextField
-        variant="outlined"
-        margin="normal"
-        fullWidth
-        label="New Password"
-        type="password"
-        value={password}
-        onChange={handlePasswordChange}
-      />
-      <TextField
-        variant="outlined"
-        margin="normal"
-        fullWidth
-        label="Confirm Password"
-        type="password"
-        value={confirmPassword}
-        onChange={handleConfirmPasswordChange}
-      />
-      {/* <Button variant="contained" color="primary" onClick={handleResetClick}> */}
-      Reset Password
-      {/* </Button> */}
+      <form onSubmit={handleSubmit}>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          label="New Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          label="Confirm Password"
+          type="password"
+          value={passwordConfirm}
+          onChange={(e) => setPasswordConfirm(e.target.value)}
+        />
+        <Button variant="contained" color="primary" type="submit">
+          Reset Password
+        </Button>
+      </form>
     </Container>
   );
 };
