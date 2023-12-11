@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,7 +12,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import axios from "axios";
+
+import { useState } from "react";
+import useAuthContext from "../../hooks/useAuth";
 
 const defaulTheme = createTheme();
 
@@ -22,23 +23,15 @@ export default function LogIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { Login } = useAuthContext();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const val = {
-      email,
-      password,
-    };
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/users/login",
-        val,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(response.data); // log the successful response
-    } catch (error) {
-      console.error("Error submitting the form:", error);
+
+    if (!email || !password) {
+      return console.log("Please fill in everything");
+    } else {
+      Login(email, password);
     }
   };
 

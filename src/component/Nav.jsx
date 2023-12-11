@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import axios from "axios";
 import {
   // Card,
   AppBar,
@@ -10,18 +9,10 @@ import {
 } from "@mui/material";
 import { AccountCircle, ExitToApp } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
+import useAuthContext from "../hooks/useAuth";
 
 const Navbar = () => {
-  const handleClick = async () => {
-    try {
-      await axios.get("http://localhost:3000/api/users/logout", {
-        withCredentials: true,
-      });
-      console.log("logged out");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const { LogOut } = useAuthContext();
 
   return (
     <div>
@@ -44,7 +35,7 @@ const Navbar = () => {
                 <AccountCircle />
               </IconButton>
             </Link>
-            <IconButton color="inherit" onClick={handleClick}>
+            <IconButton color="inherit" onClick={() => LogOut()}>
               <ExitToApp />
             </IconButton>
           </Box>

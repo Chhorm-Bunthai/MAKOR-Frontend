@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,7 +11,9 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import axios from "axios";
+
+import { useState, useContext } from "react";
+import AuthContext from "../../context/authContext";
 
 const defaultTheme = createTheme();
 
@@ -24,28 +25,14 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
+  const { SignUp } = useContext(AuthContext);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const val = {
-      name,
-      email,
-      password,
-      passwordConfirm,
-    };
-
-    console.log(val);
-    console.log(val, "va");
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/users/signup",
-        val,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(response.data); // log the successful response
-    } catch (error) {
-      console.error("Error submitting the form:", error);
+    if (!name || !password || !passwordConfirm || !email) {
+      return console.log("Please fill in everything");
+    } else {
+      SignUp(name, email, password, passwordConfirm);
     }
   };
 
