@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import axios from "axios";
+import useAuthContext from "../../hooks/useAuth";
 
 const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +13,7 @@ const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const { token } = useParams();
+  const { resetPassword } = useAuthContext();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -28,24 +29,7 @@ const ResetPassword = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    try {
-      const data = {
-        password,
-        passwordConfirm,
-      };
-      console.log(data);
-      const res = await axios.patch(
-        `http://localhost:3000/api/users/resetPassword/${token}`,
-        data,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(res);
-    } catch (e) {
-      console.log(e);
-    }
+    resetPassword(password, passwordConfirm, token);
   };
 
   return (
@@ -54,11 +38,9 @@ const ResetPassword = () => {
       maxWidth="xs"
       style={{ marginTop: "100px", padding: "20px" }}
     >
-      <Typography variant="h4" >Reset Password</Typography>
-      <Typography>
-        Please Enter your new password
-      </Typography>
-      <form onSubmit={handleSubmit} style={{ marginTop: "10px"}}>
+      <Typography variant="h4">Reset Password</Typography>
+      <Typography>Please Enter your new password</Typography>
+      <form onSubmit={handleSubmit} style={{ marginTop: "10px" }}>
         <TextField
           onChange={(e) => setPassword(e.target.value)}
           value={password}
@@ -88,8 +70,7 @@ const ResetPassword = () => {
         />
 
         <TextField
-        
-        style={{ marginBottom: "30px" }}
+          style={{ marginBottom: "30px" }}
           onChange={(e) => setPasswordConfirm(e.target.value)}
           value={passwordConfirm}
           margin="normal"

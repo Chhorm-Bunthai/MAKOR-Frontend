@@ -14,6 +14,7 @@ import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { useState } from "react";
+import Cookies from "js-cookie";
 import useAuthContext from "../../hooks/useAuth";
 
 const defaulTheme = createTheme();
@@ -24,6 +25,7 @@ export default function LogIn() {
   const [password, setPassword] = useState("");
 
   const { Login } = useAuthContext();
+  // const token = Cookies.get("jwt");
 
   const handleSubmit = async (e) => {
     e.preventDefault();

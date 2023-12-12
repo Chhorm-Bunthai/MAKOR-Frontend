@@ -7,30 +7,19 @@ import {
   Stack,
   Grid,
 } from "@mui/material";
-import axios from "axios";
+
+import useAuthContext from "../../hooks/useAuth";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
 
+  const { forgotPassword } = useAuthContext();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const data = {
-        email,
-      };
-      const res = await axios.post(
-        "http://localhost:3000/api/users/forgotPassword",
-        data,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(res);
-      console.log(email);
-    } catch (error) {
-      console.log(error);
-    }
+    forgotPassword(email);
   };
+
   return (
     <Container component="main" maxWidth="xs">
       <Stack
@@ -44,13 +33,18 @@ const ForgotPassword = () => {
           padding: "20px",
         }}
       >
-        <Typography variant="h5" sx={{ marginBottom: "30px", marginTop: "20PX", fontWeight: "bold"}}>Forgot Password</Typography>
+        <Typography
+          variant="h5"
+          sx={{ marginBottom: "30px", marginTop: "20PX", fontWeight: "bold" }}
+        >
+          Forgot Password
+        </Typography>
         {/* {resetSent ? ( */}
 
-        <Stack spacing={2} >
+        <Stack spacing={2}>
           <Typography>
-            Enter your email address, and we will send you a link via your email to reset your
-            password.
+            Enter your email address, and we will send you a link via your email
+            to reset your password.
           </Typography>
           {/* <TextField
             variant="outlined"
@@ -64,17 +58,17 @@ const ForgotPassword = () => {
             }}
           /> */}
           <TextField
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
-                  required
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+          />
           <Grid container justifyContent="start">
             <Grid item>
               <Button
