@@ -14,7 +14,7 @@ import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { useState } from "react";
-import Cookies from "js-cookie";
+
 import useAuthContext from "../../hooks/useAuth";
 
 const defaulTheme = createTheme();
@@ -30,11 +30,7 @@ export default function LogIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
-      return console.log("Please fill in everything");
-    } else {
-      Login(email, password);
-    }
+    Login(email, password);
   };
 
   const handleClickShowPassword = () => {
