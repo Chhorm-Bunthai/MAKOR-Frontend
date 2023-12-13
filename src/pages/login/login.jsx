@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -19,6 +19,7 @@ import useAuthContext from "../../hooks/useAuth";
 const defaulTheme = createTheme();
 
 export default function LogIn() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,11 +28,17 @@ export default function LogIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!email || !password) {
-      return console.log("Please fill in everything");
-    } else {
-      Login(email, password);
+    try {
+      const loginResult = await Login(email, password);
+      if (!email || !password) {
+        return console.log("Please fill in everything");
+      } else if (loginResult){
+          navigate("/");
+      } else {
+          navigate("/login");
+        }
+    } catch (err) {
+      console.log(err);
     }
   };
 

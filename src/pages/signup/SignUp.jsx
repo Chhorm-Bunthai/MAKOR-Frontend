@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -18,6 +18,7 @@ import AuthContext from "../../context/authContext";
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -33,7 +34,9 @@ export default function SignUp() {
       return console.log("Please fill in everything");
     } else {
       SignUp(name, email, password, passwordConfirm);
+      navigate('/login')
     }
+    
   };
 
   const handleClickShowPassword = () => {
@@ -159,6 +162,7 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={navigate}
             >
               Sign Up
             </Button>

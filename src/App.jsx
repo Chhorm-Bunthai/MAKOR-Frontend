@@ -7,7 +7,7 @@ import Logout from "./pages/logout/Logout";
 import Navbar from "./component/Nav";
 import ForgotPassword from "./pages/login/ForgotPassword";
 import ResetPassword from "./pages/login/ResetPassword";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 import "./App.css";
 // import useAuthContext from "./hooks/useAuth";
@@ -16,7 +16,7 @@ function App() {
   // const { Me } = useAuthContext();
   // const token = localStorage.getItem("token");
   // console.log("App.js", token);
-  const token = Cookies.get("jwt");
+  // const token = Cookies.get("jwt");
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -29,7 +29,6 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-
       <div className="">
         <Routes>
           <Route path="/" element={<Main />} />

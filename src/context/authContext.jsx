@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 
 const AuthContext = createContext();
 
@@ -13,7 +12,6 @@ function Provider({ children }) {
       email,
       password,
     };
-    ``;
     try {
       const response = await axios.post(
         "http://localhost:3000/api/users/login",
@@ -22,8 +20,10 @@ function Provider({ children }) {
           withCredentials: true,
         }
       );
-      console.log(response.data); // log the successful response
-      Cookies.set("jwt", response.data.data.token); // set token as cookie in frontend and only when user login is successful
+      console.log(response); // log the successful response
+      
+      return response.data.data.token;
+
       // localStorage.setItem("token", response.data.data.token);
       // console.log(response.data.data.token);
     } catch (error) {
@@ -42,7 +42,6 @@ function Provider({ children }) {
       password,
       passwordConfirm,
     };
-
     try {
       const response = await axios.post(
         "http://localhost:3000/api/users/signup",
@@ -85,13 +84,11 @@ function Provider({ children }) {
       console.log(err);
     }
   };
-
   const valueToShare = { Login, SignUp, LogOut, AppError, Me };
 
   return (
     <AuthContext.Provider value={valueToShare}>{children}</AuthContext.Provider>
   );
 }
-
 export { Provider };
 export default AuthContext;
