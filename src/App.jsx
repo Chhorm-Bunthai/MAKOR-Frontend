@@ -7,26 +7,15 @@ import Logout from "./pages/logout/Logout";
 import Navbar from "./component/Nav";
 import ForgotPassword from "./pages/login/ForgotPassword";
 import ResetPassword from "./pages/login/ResetPassword";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 // import Cookies from "js-cookie";
 
 import "./App.css";
-// import useAuthContext from "./hooks/useAuth";
 
+const defaultTheme = createTheme();
 function App() {
-  // const { Me } = useAuthContext();
-  // const token = localStorage.getItem("token");
-  // console.log("App.js", token);
-  // const token = Cookies.get("jwt");
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const userData = await Me();
-  //     console.log(userData);
-  //   };
-
-  //   fetchData();
-  // }, []);
   return (
+    <ThemeProvider theme={defaultTheme}>
     <BrowserRouter>
       <Navbar />
       <div className="">
@@ -40,6 +29,7 @@ function App() {
         </Routes>
       </div>
     </BrowserRouter>
+    </ThemeProvider>
   );
 }
 export default App;

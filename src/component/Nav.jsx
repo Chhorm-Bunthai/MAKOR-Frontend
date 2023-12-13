@@ -13,7 +13,6 @@ import useAuthContext from "../hooks/useAuth";
 
 const Navbar = () => {
   const { LogOut } = useAuthContext();
-
   return (
     <div>
       <AppBar position="static">
@@ -25,9 +24,7 @@ const Navbar = () => {
             component="div"
             sx={{ flexGrow: 1, ml: 2 }}
           >
-            <Link className="logo" to="/">
-              Nika E-Commerce
-            </Link>
+            <Link className="logo">Nika E-Commerce</Link>
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Link className="logo" to="/login">
@@ -44,5 +41,4 @@ const Navbar = () => {
     </div>
   );
 };
-
 export default Navbar;

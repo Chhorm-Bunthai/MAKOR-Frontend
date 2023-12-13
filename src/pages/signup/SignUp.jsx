@@ -6,7 +6,6 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
@@ -15,7 +14,6 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState, useContext } from "react";
 import AuthContext from "../../context/authContext";
 
-const defaultTheme = createTheme();
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -25,18 +23,29 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [error, setError] = useState("");
 
   const { SignUp } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !password || !passwordConfirm || !email) {
-      return console.log("Please fill in everything");
-    } else {
-      SignUp(name, email, password, passwordConfirm);
-      navigate('/login')
+    try {
+      if (!name || !password || !passwordConfirm || !email) {
+        throw new Error("Please fill up in everything");
+      }
+
+      // Check if the password and confirmPassword match
+      if (password !== passwordConfirm) {
+        throw new Error("Passwords do not match");
+      }
+      // Assuming SignUp returns a promise
+      await SignUp(name, email, password, passwordConfirm);
+
+      navigate("/login");
+    } catch (error) {
+      console.error("Signup failed:", error.message);
+      setError(error.message)
     }
-    
   };
 
   const handleClickShowPassword = () => {
@@ -52,7 +61,6 @@ export default function SignUp() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -162,10 +170,15 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={navigate}
+              onClick={handleSubmit}
             >
               Sign Up
             </Button>
+            { error && (
+          <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+            {error}
+          </Typography>
+        )}
             <Grid container justifyContent="center" sx={{ mt: 2 }}>
               <Grid item>
                 <Typography
@@ -193,6 +206,5 @@ export default function SignUp() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
   );
 }

@@ -8,7 +8,6 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import { IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -16,7 +15,6 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import useAuthContext from "../../hooks/useAuth";
 
-const defaulTheme = createTheme();
 
 export default function LogIn() {
   const navigate = useNavigate();
@@ -51,7 +49,6 @@ export default function LogIn() {
   };
 
   return (
-    <ThemeProvider theme={defaulTheme}>
       <Container component="main" maxwidth="xs">
         <CssBaseline />
         <Box
@@ -151,6 +148,5 @@ export default function LogIn() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
   );
 }

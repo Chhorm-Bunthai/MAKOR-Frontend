@@ -1,12 +1,10 @@
-/* eslint-disable react/prop-types */
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import axios from "axios";
 
 const AuthContext = createContext();
 
 function Provider({ children }) {
   let AppError;
-
   const Login = async (email, password) => {
     const val = {
       email,
@@ -21,7 +19,7 @@ function Provider({ children }) {
         }
       );
       console.log(response); // log the successful response
-      
+
       return response.data.data.token;
 
       // localStorage.setItem("token", response.data.data.token);
