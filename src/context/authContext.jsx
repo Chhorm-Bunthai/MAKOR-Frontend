@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
 const AuthContext = createContext();
 
 function Provider({ children }) {
-  const [auth, setAuth] = useState({ jwt: false });
   let AppError;
   const Login = async (email, password) => {
     const val = {
@@ -23,7 +22,6 @@ function Provider({ children }) {
       );
       console.log(response.data); // log the successful response
       Cookies.set("jwt", response.data.data.token); // set token as cookie in frontend and only when user login is successful
-      setAuth({ jwt: true });
     } catch (error) {
       if (error.response) {
         AppError = error.response.data.message;
@@ -66,7 +64,6 @@ function Provider({ children }) {
         withCredentials: true,
       });
       console.log("logged out");
-      setAuth({ jwt: false });
     } catch (err) {
       console.log(err);
     }
@@ -116,7 +113,6 @@ function Provider({ children }) {
     AppError,
     forgotPassword,
     resetPassword,
-    auth,
   };
 
   return (
